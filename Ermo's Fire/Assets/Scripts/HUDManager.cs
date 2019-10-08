@@ -20,6 +20,9 @@ public class HUDManager : MonoBehaviour
     public const int runeCount = 3;
     public Vector2[] l_runePositions;
 
+    // How fast to linearly interpolate for the rune icons
+    public float lerpSpeed = 25.0f;
+
     // List of rune game objects
     public GameObject[] l_runeSprites;
 
@@ -57,7 +60,7 @@ public class HUDManager : MonoBehaviour
         {
             for (int i = 0; i < runeCount; ++i)
             {
-                l_runeSprites[i].transform.position = new Vector3(l_runePositions[i].x, l_runePositions[i].y, 0.0f);
+                l_runeSprites[i].transform.position = Vector2.Lerp(l_runeSprites[i].transform.position, l_runePositions[i], lerpSpeed * Time.deltaTime);
             }
         }
         else
@@ -84,7 +87,7 @@ public class HUDManager : MonoBehaviour
 
         foreach (GameObject rune in l_runeSprites)
         {
-            rune.transform.position = this.gameObject.transform.position;
+            rune.transform.position = Vector2.Lerp(rune.transform.position, this.gameObject.transform.position, lerpSpeed * Time.deltaTime);
         }
     }
 
