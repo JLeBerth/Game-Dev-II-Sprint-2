@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UnityStandardAssets._2D
@@ -20,6 +20,8 @@ namespace UnityStandardAssets._2D
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
         public bool selectRunes = false; //For determing if the player is selecting runes
+        private bool fireOn = false; // if fire rune is enabled or not
+        public GameObject firePre;
 
         private void Awake()
         {
@@ -28,6 +30,9 @@ namespace UnityStandardAssets._2D
             m_CeilingCheck = transform.Find("CeilingCheck");
             m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
+
+            // fire rune enabled for testing purposes
+            fireOn = true;
         }
 
 
@@ -50,6 +55,12 @@ namespace UnityStandardAssets._2D
             if (selectRunes)
             {
                 //put in rune select code here
+            }
+
+            // If F is pressed, spawn fire boxes
+            if(Input.GetKey(KeyCode.F))
+            {
+                SpawnFire();
             }
         }
 
@@ -113,6 +124,26 @@ namespace UnityStandardAssets._2D
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
+        }
+
+        // Use fire if it's infire rune mode
+        private void SpawnFire()
+        {
+            Vector3 firePosition = this.transform.position;
+            float fireSeparator = 6;
+            if(m_FacingRight)
+            {
+                firePosition.x += fireSeparator;
+                GameObject fireObj = Instantiate(firePre, firePosition, Quaternion.identity);
+                fireObj.tag = "Fire";
+            }
+            else
+            {
+                firePosition.x -= fireSeparator;
+                GameObject fireObj = Instantiate(firePre, firePosition, Quaternion.identity);
+                fireObj.tag = "Fire";
+            }
+            
         }
     }
 }

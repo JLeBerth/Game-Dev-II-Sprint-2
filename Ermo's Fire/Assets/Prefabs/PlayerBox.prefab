@@ -339,6 +339,8 @@ MonoBehaviour:
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 4294967295
+  selectRunes: 0
+  firePre: {fileID: 5645066369642668980, guid: 442765ac26fcbf747b5796d9696512ee, type: 3}
 --- !u!114 &5733361930620275641
 MonoBehaviour:
   m_ObjectHideFlags: 0
