@@ -20,8 +20,12 @@ namespace UnityStandardAssets._2D
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
         public bool selectRunes = false; //For determing if the player is selecting runes
-        private bool fireOn = false; // if fire rune is enabled or not
+        private bool fireRuneOn = false; // if fire rune is enabled or not
+        private bool waterRuneOn = false; // if water rune is enabled or not
+        public bool hasFireRune = false; // no fire rune at the start
+        public bool hasWaterRune = false; // no water rune at the start
         public GameObject firePre;
+        public GameObject waterPre;
 
         private void Awake()
         {
@@ -32,7 +36,7 @@ namespace UnityStandardAssets._2D
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
 
             // fire rune enabled for testing purposes
-            fireOn = true;
+            fireRuneOn = true;
         }
 
 
@@ -57,10 +61,27 @@ namespace UnityStandardAssets._2D
                 //put in rune select code here
             }
 
+            if(Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                fireRuneOn = true;
+                waterRuneOn = false;
+            }
+            else if(Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                fireRuneOn = false;
+                waterRuneOn = true;
+            }
+
             // If F is pressed, spawn fire boxes
-            if(Input.GetKey(KeyCode.F))
+            if(Input.GetKey(KeyCode.F) && fireRuneOn)
             {
                 SpawnFire();
+            }
+
+            // If left key is pressed, shoot water depending on where the user clicks in the world
+            if (Input.GetMouseButtonDown(0) && waterRuneOn)
+            {
+
             }
         }
 
@@ -126,7 +147,19 @@ namespace UnityStandardAssets._2D
             transform.localScale = theScale;
         }
 
-        // Use fire if it's infire rune mode
+        /// Did you collect the fire rune
+        void OnCollisionEnter2D(Collision2D col)
+        {
+            // Other collider is for the incoming object
+            // Regular collider is for the object itself
+            if (col.otherCollider.gameObject.tag == "Fire Rune")
+            {
+                Debug.Log("Collected the fire rune");
+            }
+        }
+
+
+        // Use fire if it's in fire rune mode
         private void SpawnFire()
         {
             Vector3 firePosition = this.transform.position;
@@ -143,7 +176,25 @@ namespace UnityStandardAssets._2D
                 GameObject fireObj = Instantiate(firePre, firePosition, Quaternion.identity);
                 fireObj.tag = "Fire";
             }
-            
+        }
+
+        // Use water if it's in water rune mode
+        private void SpawnWater()
+        {
+            Vector3 waterPosition = this.transform.position;
+            float fireSeparator = 6;
+            if (m_FacingRight)
+            {
+                waterPosition.x += fireSeparator;
+                GameObject waterObj = Instantiate(waterPre, waterPosition, Quaternion.identity);
+                waterObj.tag = "Fire";
+            }
+            else
+            {
+                waterPosition.x -= fireSeparator;
+                GameObject waterObj = Instantiate(waterPre, waterPosition, Quaternion.identity);
+                waterObj.tag = "Fire";
+            }
         }
     }
 }

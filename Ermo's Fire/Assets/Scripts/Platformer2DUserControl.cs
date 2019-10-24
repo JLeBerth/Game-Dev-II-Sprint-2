@@ -35,11 +35,13 @@ namespace UnityStandardAssets._2D
 
             if (Input.GetMouseButtonUp(1))
             {
+                Debug.Log("up");
                 m_Character.selectRunes = false;
             }
 
             if (Input.GetMouseButtonDown(1))
             {
+                Debug.Log("pressed right");
                 m_Character.selectRunes = true; 
             }
             

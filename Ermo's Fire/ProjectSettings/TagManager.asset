@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Fire
+  - Fire Rune
+  - Water Rune
   layers:
   - Default
   - TransparentFX
