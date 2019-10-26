@@ -528,7 +528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b65104bbfdf38b4a96ccd25bfe39aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiSprites: {fileID: 0}
+  uiSprites: {fileID: 1804588471314519280}
   lerpSpeed: 25
   runeRadius: 4
 --- !u!1 &5733361930630004317
