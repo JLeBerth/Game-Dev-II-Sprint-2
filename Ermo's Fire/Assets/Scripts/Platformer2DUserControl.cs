@@ -9,6 +9,17 @@ namespace UnityStandardAssets._2D
     {
         private PlatformerCharacter2D m_Character;
         private bool m_Jump;
+        public bool m_Selection
+        {
+            get
+            {
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
 
 
         private void Awake()

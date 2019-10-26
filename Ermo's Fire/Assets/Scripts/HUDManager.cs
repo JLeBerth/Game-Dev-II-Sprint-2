@@ -13,13 +13,9 @@ namespace UnityStandardAssets._2D
     public class HUDManager : MonoBehaviour
     {
         // Pointer to the player character, used to update rune selection / active rune flag
-        PlatformerCharacter2D m_Character;
+        Platformer2DUserControl m_Character;
 
-        // How many runes and the list to hold their positions
-        // TODO: runecount is const by design at the moment, 
-        // for our goal of having a game with a flexible inventory (being able to set down or carry a rune w/ you), this must eventually be changed to allow for some sort of "abilityManager" to hold the active runes
-        // reminder: Linked Lists!
-        public LinkedList<GameObject> m_lRuneList;
+        public GameObject uiSprites;
 
         // How fast to linearly interpolate for the rune icons
         public float lerpSpeed = 25.0f;
@@ -29,17 +25,12 @@ namespace UnityStandardAssets._2D
 
         private void Awake()
         {
-            // Initialize Rune List
-            m_lRuneList = new LinkedList<GameObject>();
-
             // Grab ref to player character
-            m_Character = GetComponent<PlatformerCharacter2D>();
+            m_Character = GetComponent<Platformer2DUserControl>();
         }
 
         void Start()
         {
-            // Get all child game objects into our list
-            
         }
 
         void Update()
@@ -47,17 +38,16 @@ namespace UnityStandardAssets._2D
             // If flag enabled: 
             // - set runes to visible
             // - TODO: lerp from player to outer radius position
-            if (m_Character.selectRunes)
+            if (m_Character.m_Selection)
             {
-                int nRunes = m_lRuneList.Count;
-                LinkedListNode<GameObject> curr = m_lRuneList.First;
-                for (int i = 0; i < nRunes; ++i)
+                int nRunes = uiSprites.transform.childCount;
+
+                for(int i = 0; i < nRunes; ++i)
                 {
                     float xPos = gameObject.transform.position.x + runeRadius * Mathf.Cos(Mathf.PI * (i + 1) / (nRunes + 1));
                     float yPos = gameObject.transform.position.y + runeRadius * Mathf.Sin(Mathf.PI * (i + 1) / (nRunes + 1));
                     Vector2 neededPosition = new Vector2(xPos, yPos);
-                    curr.Value.transform.position = Vector2.Lerp(curr.Value.transform.position, neededPosition, lerpSpeed * Time.deltaTime);
-                    curr = curr.Next;
+                    uiSprites.transform.GetChild(i).position = Vector2.Lerp(uiSprites.transform.GetChild(i).position, neededPosition, lerpSpeed * Time.deltaTime);
                 }
             }
             else
@@ -71,9 +61,9 @@ namespace UnityStandardAssets._2D
         /// </summary>
         private void ResetRunes()
         {
-            foreach (GameObject rune in m_lRuneList)
+            for(int i = 0; i < uiSprites.transform.childCount; ++i)
             {
-                rune.transform.position = Vector2.Lerp(rune.transform.position, this.gameObject.transform.position, lerpSpeed * Time.deltaTime);
+                uiSprites.transform.GetChild(i).position = Vector2.Lerp(uiSprites.transform.GetChild(i).position, this.gameObject.transform.position, lerpSpeed * Time.deltaTime);
             }
         }
 
