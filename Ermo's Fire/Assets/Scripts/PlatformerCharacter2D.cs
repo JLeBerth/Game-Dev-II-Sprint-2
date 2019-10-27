@@ -181,20 +181,7 @@ namespace UnityStandardAssets._2D
         // Use water if it's in water rune mode
         private void SpawnWater()
         {
-            Vector3 waterPosition = this.transform.position;
-            float fireSeparator = 6;
-            if (m_FacingRight)
-            {
-                waterPosition.x += fireSeparator;
-                GameObject waterObj = Instantiate(waterPre, waterPosition, Quaternion.identity);
-                waterObj.tag = "Fire";
-            }
-            else
-            {
-                waterPosition.x -= fireSeparator;
-                GameObject waterObj = Instantiate(waterPre, waterPosition, Quaternion.identity);
-                waterObj.tag = "Fire";
-            }
+           
         }
     }
 }

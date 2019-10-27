@@ -8,40 +8,130 @@ using UnityEngine.UI;
 /// </summary>
 public class Lives : MonoBehaviour
 {
-    public int health;
-    public int numOfHearts;
-    public Image[] hearts;
-    public Sprite fullHeart;
-    public Sprite emptyHeart;
+    private int maxHeartAmount = 3;
+    public int startHearts = 3;
+    public int curHealth;
+    private int maxHealth;
+    private int healthPerHeart = 1;
 
+    public Image[] healthImages;
+    public Sprite[] healthSprites;
+
+    // Initialize variables here
+    private void Start()
+    {
+        curHealth = startHearts * healthPerHeart;
+        maxHealth = maxHeartAmount * healthPerHeart;
+        checkHealthAmount();
+    }
+    
+    // Update
     private void Update()
     {
-        if(health > numOfHearts)
+        if(Input.GetKeyDown(KeyCode.H))
         {
-            health = numOfHearts; 
+            TakeDamage(1);
+        }
+        else if(Input.GetKeyDown(KeyCode.G))
+        {
+            Heal(1);
+        }
+    }
+
+    /// <summary>
+    /// Method to check health and update the sprites
+    /// </summary>
+    void checkHealthAmount()
+    {
+        for (int i = 0; i < maxHeartAmount; i++)
+        {
+            if(startHearts <= i)
+            {
+                healthImages[i].enabled = false;
+            }
+            else
+            {
+                healthImages[i].enabled = true;
+            }
         }
 
-        for (int i = 0; i < hearts.Length; i++)
-        {
-            if(i < health)
-            {
-                hearts[i].sprite = fullHeart;
-            }
-            else
-            {
-                hearts[i].sprite = emptyHeart;
-            }
+        UpdateHearts();
+    }
 
-            if (i < numOfHearts)
+    /// <summary>
+    /// Method to update drawing the hearts
+    /// </summary>
+    void UpdateHearts()
+    {
+        bool empty = false;
+        int i = 0;
+
+        foreach(Image image in healthImages)
+        {
+            if(empty)
             {
-                hearts[i].enabled = true;
+                image.sprite = healthSprites[0];
             }
             else
-            { 
-                hearts[i].enabled = false;
+            {
+                i++;
+                if(curHealth >= i * healthPerHeart)
+                {
+                    image.sprite = healthSprites[healthSprites.Length - 1];
+                }
+                else
+                {
+                    int currentHeartHealth = (int)(healthPerHeart - (healthPerHeart * i - curHealth));
+                    int healthPerImage = healthPerHeart / (healthSprites.Length - 1);
+                    int imageIndex = currentHeartHealth / healthPerImage;
+                    image.sprite = healthSprites[imageIndex];
+                    empty = true;
+                }
             }
         }
     }
 
+    /// <summary>
+    /// Method for player taking damage
+    /// </summary>
+    public void TakeDamage(int amount)
+    {
+        if(curHealth > 0)
+        {
+            curHealth -= amount;
+            curHealth = Mathf.Clamp(curHealth, 0, startHearts * healthPerHeart);
+            UpdateHearts();
+            Debug.Log("Subtract");
+        }
+    }
 
+    /// <summary>
+    /// Method for player healing damage
+    /// </summary>
+    /// <param name="amount"></param>
+    public void Heal(int amount)
+    {
+        if (curHealth != startHearts)
+        {
+            curHealth += amount;
+            curHealth = Mathf.Clamp(curHealth, 0, startHearts * healthPerHeart);
+            UpdateHearts();
+            Debug.Log("Add");
+        }
+    }
+
+    /// <summary>
+    /// Adding hearts
+    /// Restores health when you collect a heart
+    /// </summary>
+    public void AddHeartContainer()
+    {
+        startHearts++;
+        startHearts = Mathf.Clamp(startHearts, 0, maxHeartAmount);
+
+        curHealth = startHearts * healthPerHeart;
+        maxHealth = maxHeartAmount * healthPerHeart;
+
+        checkHealthAmount();
+    }
 }
