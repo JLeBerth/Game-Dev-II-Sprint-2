@@ -9,8 +9,8 @@ namespace UnityStandardAssets._2D
     {
         private PlatformerCharacter2D m_Character;
         private bool m_Jump;
-        public bool m_Selection
-        {
+        public bool m_Selection;
+        /*{
             get
             {
                 if (Input.GetKey(KeyCode.LeftShift))
@@ -19,7 +19,7 @@ namespace UnityStandardAssets._2D
                 }
                 return false;
             }
-        }
+        }*/
 
 
         private void Awake()
@@ -43,19 +43,15 @@ namespace UnityStandardAssets._2D
             // Read the inputs.
             bool crouch = Input.GetKey(KeyCode.LeftControl);
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
+       
+            //detect if rune select is up
+            m_Selection = Input.GetMouseButton(1);
 
-            if (Input.GetMouseButtonUp(1))
-            {
-                Debug.Log("up");
-                m_Character.selectRunes = false;
-            }
+            //detect if using primary ability
+             m_Character.runePrimaryActive = Input.GetMouseButton(0);
 
-            if (Input.GetMouseButtonDown(1))
-            {
-                Debug.Log("pressed right");
-                m_Character.selectRunes = true; 
-            }
-            
+            //detect if using secondary
+            m_Character.runeSecondaryActive = Input.GetKey(KeyCode.LeftShift);
 
             // Pass all parameters to the character control script.
             m_Character.Move(h, crouch, m_Jump);

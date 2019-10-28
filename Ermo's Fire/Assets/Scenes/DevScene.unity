@@ -6086,27 +6086,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5733361930549478097}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1350274464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1350274463}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00c35e12c5de2c344a166123e61e0338, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startHearts: 3
-  curHealth: 0
-  healthImages:
-  - {fileID: 1923399269}
-  - {fileID: 1060004882}
-  - {fileID: 1336747403}
-  healthSprites:
-  - {fileID: 21300000, guid: fddb86a4e45f55145836d2ebd18af1a9, type: 3}
-  - {fileID: 21300000, guid: d735b1048b5d7854ca407d0c1576addd, type: 3}
 --- !u!1 &1553560808
 GameObject:
   m_ObjectHideFlags: 0
@@ -16805,17 +16784,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5733361930620275643, guid: 7a5b0edcabe0c2d408412e377d416141,
-        type: 3}
-      propertyPath: firePre
+    - target: {fileID: 1350274464, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
+      propertyPath: healthImages.Array.data[0]
       value: 
-      objectReference: {fileID: 5645066369642668980, guid: 442765ac26fcbf747b5796d9696512ee,
-        type: 3}
-    - target: {fileID: 5733361930608837753, guid: 7a5b0edcabe0c2d408412e377d416141,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      objectReference: {fileID: 1923399269}
+    - target: {fileID: 1350274464, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
+      propertyPath: healthImages.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: e00eb32c98b32774bbf0238b67122df4, type: 2}
-    m_RemovedComponents:
-    - {fileID: 1350274464, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
+      objectReference: {fileID: 1060004882}
+    - target: {fileID: 1350274464, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
+      propertyPath: healthImages.Array.data[2]
+      value: 
+      objectReference: {fileID: 1336747403}
+    - target: {fileID: 1058727291, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 429793077, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}

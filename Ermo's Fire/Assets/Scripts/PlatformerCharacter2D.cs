@@ -27,6 +27,12 @@ namespace UnityStandardAssets._2D
         public GameObject firePre;
         public GameObject waterPre;
 
+        public bool runePrimaryActive = false;
+        public bool runeSecondaryActive = false;
+
+        enum ActiveRune { fire, water };
+        ActiveRune selectedRune = ActiveRune.fire;
+
         private void Awake()
         {
             // Setting up references.
@@ -72,16 +78,33 @@ namespace UnityStandardAssets._2D
                 waterRuneOn = true;
             }
 
-            // If F is pressed, spawn fire boxes
-            if(Input.GetKey(KeyCode.F) && fireRuneOn)
+            //activate rune primary based on selected rune
+            if(runePrimaryActive)
             {
-                SpawnFire();
+                switch(selectedRune)
+                {
+                    case (ActiveRune.fire):
+                        SpawnFire();
+                        break;
+
+                    case (ActiveRune.water):
+                        break;
+                }
             }
 
-            // If left key is pressed, shoot water depending on where the user clicks in the world
-            if (Input.GetMouseButtonDown(0) && waterRuneOn)
+            //activate rune primary based on selected rune
+            if (runeSecondaryActive)
             {
+                switch (selectedRune)
+                {
+                    case (ActiveRune.fire):
+                        
+                        break;
 
+                    case (ActiveRune.water):
+
+                        break;
+                }
             }
         }
 
