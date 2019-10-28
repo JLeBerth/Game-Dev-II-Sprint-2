@@ -27,8 +27,14 @@ namespace UnityStandardAssets._2D
         public GameObject firePre;
         public GameObject waterPre;
 
-        public bool runePrimaryActive = false;
-        public bool runeSecondaryActive = false;
+        public bool runePrimaryActive = false; //boolean value that determines if the primary is being used
+        public bool runeSecondaryActive = false; //boolean value that determines if the secondary is being used
+        public bool m_Selection = false; //boolean value that determines if runes are being selected
+
+        public List<GameObject> runes = new List<GameObject>(); //list of all runes
+        private List<float> runeDistances = new List<float>(); //list of distances from the body to the runes
+
+        public Camera activeCam; //the active camera in the scene
 
         enum ActiveRune { fire, water };
         ActiveRune selectedRune = ActiveRune.fire;
@@ -76,6 +82,39 @@ namespace UnityStandardAssets._2D
             {
                 fireRuneOn = false;
                 waterRuneOn = true;
+            }
+
+            if(m_Selection)
+            {
+                //find 2d mouse position 
+                Vector3 mousePos = Input.mousePosition;
+                mousePos.z = 10.0f;
+                mousePos = activeCam.ScreenToWorldPoint(mousePos);
+                Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+
+                Debug.Log("Mouse Position: " + mousePos.ToString());
+                //find the distances between each rune and the mouse
+                foreach (GameObject thisRune in runes)
+                {
+                    Vector2 runePos = thisRune.transform.position;
+                    Debug.Log("Rune Position: " + runePos.ToString());
+                    runeDistances.Add(Vector2.Distance(mousePos, runePos));
+                }
+
+                float currentDistance = float.MaxValue;
+                //set the active rune to the current closest
+                for(int i = 0; i < runeDistances.Count; i++)
+                {
+                    Debug.Log("Rune Distance: " + runeDistances[i].ToString());
+                    if (runeDistances[i] < currentDistance)
+                    {
+                        selectedRune = (ActiveRune)i;
+                        currentDistance = runeDistances[i];
+
+                        Debug.Log(selectedRune.ToString());
+                    }
+                }
+                runeDistances.Clear();
             }
 
             //activate rune primary based on selected rune
@@ -168,6 +207,13 @@ namespace UnityStandardAssets._2D
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
+
+            foreach(GameObject thisRune in runes)
+            {
+                Vector3 runeScale = thisRune.transform.localScale;
+                runeScale.x *= -1;
+                thisRune.transform.localScale = runeScale;
+            }
         }
 
         /// Did you collect the fire rune

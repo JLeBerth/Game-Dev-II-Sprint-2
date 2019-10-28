@@ -38,7 +38,7 @@ namespace UnityStandardAssets._2D
             // If flag enabled: 
             // - set runes to visible
             // - TODO: lerp from player to outer radius position
-            if (m_Character.m_Selection)
+            if (m_Character.m_Character.m_Selection)
             {
                 int nRunes = uiSprites.transform.childCount;
 
@@ -54,6 +54,7 @@ namespace UnityStandardAssets._2D
             {
                 ResetRunes();
             }
+
         }
 
         /// <summary>

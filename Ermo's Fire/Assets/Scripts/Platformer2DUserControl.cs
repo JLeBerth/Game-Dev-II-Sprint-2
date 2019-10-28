@@ -7,9 +7,8 @@ namespace UnityStandardAssets._2D
     [RequireComponent(typeof (PlatformerCharacter2D))]
     public class Platformer2DUserControl : MonoBehaviour
     {
-        private PlatformerCharacter2D m_Character;
+        public PlatformerCharacter2D m_Character;
         private bool m_Jump;
-        public bool m_Selection;
         /*{
             get
             {
@@ -45,7 +44,7 @@ namespace UnityStandardAssets._2D
             float h = CrossPlatformInputManager.GetAxis("Horizontal");
        
             //detect if rune select is up
-            m_Selection = Input.GetMouseButton(1);
+            m_Character.m_Selection = Input.GetMouseButton(1);
 
             //detect if using primary ability
              m_Character.runePrimaryActive = Input.GetMouseButton(0);
