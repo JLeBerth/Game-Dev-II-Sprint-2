@@ -19,9 +19,8 @@ namespace UnityStandardAssets._2D
         private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
-        public bool selectRunes = false; //For determing if the player is selecting runes
-        private bool fireRuneOn = false; // if fire rune is enabled or not
-        private bool waterRuneOn = false; // if water rune is enabled or not
+        //private bool fireRuneOn = false; // if fire rune is enabled or not  IIIIIIIIIIIIIIIIIIII -> Moved to Enum
+        //private bool waterRuneOn = false; // if water rune is enabled or not IIIIIIIIIIIIIIIIIII -> Moved to Enum
         public bool hasFireRune = false; // no fire rune at the start
         public bool hasWaterRune = false; // no water rune at the start
         public GameObject firePre;
@@ -36,8 +35,8 @@ namespace UnityStandardAssets._2D
 
         public Camera activeCam; //the active camera in the scene
 
-        enum ActiveRune { fire, water };
-        ActiveRune selectedRune = ActiveRune.fire;
+        enum ActiveRune { fire, water, none };
+        ActiveRune selectedRune;
 
         private void Awake()
         {
@@ -46,9 +45,8 @@ namespace UnityStandardAssets._2D
             m_CeilingCheck = transform.Find("CeilingCheck");
             m_Anim = GetComponent<Animator>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
-
-            // fire rune enabled for testing purposes
-            fireRuneOn = true;
+            selectedRune = ActiveRune.none;
+            ActivateRunes();
         }
 
 
@@ -68,11 +66,8 @@ namespace UnityStandardAssets._2D
 
             // Set the vertical animation
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
-            if (selectRunes)
-            {
-                //put in rune select code here
-            }
 
+            /*
             if(Input.GetKeyDown(KeyCode.Alpha1))
             {
                 fireRuneOn = true;
@@ -83,7 +78,7 @@ namespace UnityStandardAssets._2D
                 fireRuneOn = false;
                 waterRuneOn = true;
             }
-
+            */ // Moved To Mouse Logic, no longer need test keys, enable if you want to mess with them as debug
             if(m_Selection)
             {
                 //find 2d mouse position 
@@ -92,13 +87,14 @@ namespace UnityStandardAssets._2D
                 mousePos = activeCam.ScreenToWorldPoint(mousePos);
                 Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
-                Debug.Log("Mouse Position: " + mousePos.ToString());
                 //find the distances between each rune and the mouse
                 foreach (GameObject thisRune in runes)
                 {
-                    Vector2 runePos = thisRune.transform.position;
-                    Debug.Log("Rune Position: " + runePos.ToString());
-                    runeDistances.Add(Vector2.Distance(mousePos, runePos));
+                    if (thisRune.activeSelf)
+                    {
+                        Vector2 runePos = thisRune.transform.position;
+                        runeDistances.Add(Vector2.Distance(mousePos, runePos));
+                    }
                 }
 
                 float currentDistance = float.MaxValue;
@@ -113,6 +109,12 @@ namespace UnityStandardAssets._2D
 
                         Debug.Log(selectedRune.ToString());
                     }
+                }
+
+                //sets to no runes active if there is no distances
+                if(currentDistance == float.MaxValue)
+                {
+                    selectedRune = (ActiveRune)3;
                 }
                 runeDistances.Clear();
             }
@@ -221,11 +223,27 @@ namespace UnityStandardAssets._2D
         {
             // Other collider is for the incoming object
             // Regular collider is for the object itself
-            if (col.otherCollider.gameObject.tag == "Fire Rune")
+
+            //if you collect the fire rune
+            if (col.collider.gameObject.tag == "Fire Rune")
             {
                 Debug.Log("Collected the fire rune");
+                hasFireRune = true;
+                ActivateRunes();
+                Destroy(col.collider.gameObject);
             }
+
+            //if you collect the water rune
+            if(col.collider.gameObject.tag == "Water Rune")
+            {
+                Debug.Log("Collected the water rune");
+                hasWaterRune = true;
+                ActivateRunes();
+                Destroy(col.collider.gameObject);
+            }
+
         }
+
 
 
         // Use fire if it's in fire rune mode
@@ -251,6 +269,13 @@ namespace UnityStandardAssets._2D
         private void SpawnWater()
         {
            
+        }
+
+        //determines which runes are contained by the player
+        private void ActivateRunes()
+        {
+            runes[0].SetActive(hasFireRune);
+            runes[1].SetActive(hasWaterRune);
         }
     }
 }

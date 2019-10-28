@@ -632,8 +632,8 @@ GameObject:
   - component: {fileID: 683472985}
   - component: {fileID: 683472984}
   - component: {fileID: 683472983}
-  - component: {fileID: 683472982}
   - component: {fileID: 683472986}
+  - component: {fileID: 683472982}
   m_Layer: 0
   m_Name: Water Rune
   m_TagString: Water Rune
@@ -641,19 +641,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!135 &683472982
-SphereCollider:
+--- !u!58 &683472982
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 683472981}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &683472983
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16317,8 +16320,8 @@ GameObject:
   - component: {fileID: 2000738050}
   - component: {fileID: 2000738049}
   - component: {fileID: 2000738048}
-  - component: {fileID: 2000738047}
   - component: {fileID: 2000738051}
+  - component: {fileID: 2000738047}
   m_Layer: 0
   m_Name: Fire Rune
   m_TagString: Fire Rune
@@ -16326,19 +16329,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!135 &2000738047
-SphereCollider:
+--- !u!58 &2000738047
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000738046}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2000738048
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16834,6 +16840,11 @@ PrefabInstance:
       propertyPath: healthImages.Array.data[2]
       value: 
       objectReference: {fileID: 1336747403}
+    - target: {fileID: 5733361930625510617, guid: 7a5b0edcabe0c2d408412e377d416141,
+        type: 3}
+      propertyPath: m_EdgeRadius
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5733361930613730791, guid: 7a5b0edcabe0c2d408412e377d416141,
         type: 3}
       propertyPath: m_Name
