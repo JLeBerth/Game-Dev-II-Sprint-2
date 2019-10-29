@@ -41,6 +41,10 @@ namespace UnityStandardAssets._2D
         public float invincibilitySeconds; //the editable time that a player can be immune to damage
         private bool fireImmunity; //bool to determine if player is immune to fire
 
+        public bool inWater; //bool for whether we know that the player is in water or not
+        private float normalGravity; //float to hold the normal gravity of the player
+        private float waterGravity; //float that represents the value of gravity of the player when in water
+
 
 
 
@@ -59,6 +63,10 @@ namespace UnityStandardAssets._2D
             ActivateRunes();
             fireImmunity = false;
             invincibilityTimer = 0;
+
+            //Setup the values for gravity
+            normalGravity = 3.0f;
+            waterGravity = 0.0f;
         }
 
 
@@ -72,6 +80,20 @@ namespace UnityStandardAssets._2D
             mousePos.z = 10.0f;
             mousePos = activeCam.ScreenToWorldPoint(mousePos);
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+
+            //set gravity depending if you're in water or not
+            if(inWater)
+            {
+                //gameObject.GetComponent<m_Rigidbody2D>().;
+                m_Grounded = true;
+
+            }
+            else
+            {
+                //Not be able to jump infinitely
+            }
+                
+
 
             //count down invincibility time
             if (invincibilityTimer > 0)
@@ -235,7 +257,9 @@ namespace UnityStandardAssets._2D
             }
         }
 
-
+        /// <summary>
+        ///  Method for flipping the sprite
+        /// </summary>
         private void Flip()
         {
             // Switch the way the player is labelled as facing.
@@ -255,6 +279,7 @@ namespace UnityStandardAssets._2D
         }
 
         /// Did you collect the fire rune
+        /// Did you also collect the water rune
         void OnCollisionEnter2D(Collision2D col)
         {
             // Other collider is for the incoming object
@@ -282,7 +307,6 @@ namespace UnityStandardAssets._2D
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-
             //take damage if in fire and not in fire mode
             if(collision.gameObject.tag == "Fire" && !fireImmunity)
             {
@@ -291,6 +315,20 @@ namespace UnityStandardAssets._2D
                     playerLives.TakeDamage(1);
                     invincibilityTimer = invincibilitySeconds;
                 }
+            }
+
+            //set the bool value of inWater to true or false depending if player is colliding with water or not
+            if(collision.gameObject.tag == "Water")
+            {
+                inWater = true;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if(collision.gameObject.tag == "Water")
+            {
+                inWater = false;
             }
         }
 

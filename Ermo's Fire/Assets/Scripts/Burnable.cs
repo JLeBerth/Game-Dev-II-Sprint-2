@@ -14,9 +14,8 @@ public class Burnable : MonoBehaviour
     bool burning;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        timeToBurn = 3.0f;
         newSpriteTime = timeToBurn / 3;
         changePerTime = (256 / timeToBurn) / 5;
         burning = false;
@@ -48,7 +47,7 @@ public class Burnable : MonoBehaviour
             renderColor.r += changePerTime * Time.deltaTime;
             if (renderer != null)
             {
-                renderer.material.color = renderColor;
+                //renderer.material.color = renderColor;
             }
             else
             {
