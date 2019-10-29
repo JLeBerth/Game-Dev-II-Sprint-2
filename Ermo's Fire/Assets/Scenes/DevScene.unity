@@ -342,7 +342,7 @@ GameObject:
   - component: {fileID: 302735758}
   m_Layer: 9
   m_Name: Cube
-  m_TagString: Fire
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16828,6 +16828,11 @@ PrefabInstance:
       propertyPath: activeCam
       value: 
       objectReference: {fileID: 1397305521}
+    - target: {fileID: 5733361930620275643, guid: 7a5b0edcabe0c2d408412e377d416141,
+        type: 3}
+      propertyPath: invincibilitySeconds
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1350274464, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
       propertyPath: healthImages.Array.data[0]
       value: 

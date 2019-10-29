@@ -37,8 +37,8 @@ namespace UnityStandardAssets._2D
 
         private Lives playerLives; //access to the players lives script
 
-        private float invincibilityTime; //time after taking damage that can take damage again
-
+        private float invincibilityTimer; //time after taking damage that can take damage again clock
+        public float invincibilitySeconds; //the editable time that a player can be immune to damage
         private bool fireImmunity; //bool to determine if player is immune to fire
 
 
@@ -58,7 +58,7 @@ namespace UnityStandardAssets._2D
             selectedRune = ActiveRune.none;
             ActivateRunes();
             fireImmunity = false;
-            invincibilityTime = 0;
+            invincibilityTimer = 0;
         }
 
 
@@ -68,9 +68,9 @@ namespace UnityStandardAssets._2D
             fireImmunity = false;
 
             //count down invincibility time
-            if(invincibilityTime > 0)
+            if(invincibilityTimer > 0)
             {
-                invincibilityTime -= Time.deltaTime;
+                invincibilityTimer -= Time.deltaTime;
             }
 
             // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
@@ -280,10 +280,10 @@ namespace UnityStandardAssets._2D
             //take damage if in fire and not in fire mode
             if(collision.gameObject.tag == "Fire" && !fireImmunity)
             {
-                if (invincibilityTime <= 0)
+                if (invincibilityTimer <= 0)
                 {
                     playerLives.TakeDamage(1);
-                    invincibilityTime = 2;
+                    invincibilityTimer = invincibilitySeconds;
                 }
             }
         }
