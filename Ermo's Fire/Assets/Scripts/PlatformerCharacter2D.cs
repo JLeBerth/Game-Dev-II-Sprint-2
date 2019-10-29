@@ -67,8 +67,14 @@ namespace UnityStandardAssets._2D
             m_Grounded = false;
             fireImmunity = false;
 
+            //find 2d mouse position 
+            Vector3 mousePos = Input.mousePosition;
+            mousePos.z = 10.0f;
+            mousePos = activeCam.ScreenToWorldPoint(mousePos);
+            Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+
             //count down invincibility time
-            if(invincibilityTimer > 0)
+            if (invincibilityTimer > 0)
             {
                 invincibilityTimer -= Time.deltaTime;
             }
@@ -104,11 +110,7 @@ namespace UnityStandardAssets._2D
                 //draw all runes
                 DrawAll();
 
-                //find 2d mouse position 
-                Vector3 mousePos = Input.mousePosition;
-                mousePos.z = 10.0f;
-                mousePos = activeCam.ScreenToWorldPoint(mousePos);
-                Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
+                
 
                 //find the distances between each rune and the mouse
                 foreach (GameObject thisRune in runes)
@@ -155,10 +157,14 @@ namespace UnityStandardAssets._2D
                 switch(selectedRune)
                 {
                     case (ActiveRune.fire):
-                        SpawnFire();
+                        SpawnFire(mousePos2D);
                         break;
 
                     case (ActiveRune.water):
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            SpawnWater(mousePos2D);
+                        }
                         break;
                 }
             }
@@ -291,28 +297,31 @@ namespace UnityStandardAssets._2D
 
 
         // Use fire if it's in fire rune mode
-        private void SpawnFire()
+        private void SpawnFire(Vector2 mouse)
         {
             Vector3 firePosition = this.transform.position;
-            float fireSeparator = 6;
-            if(m_FacingRight)
-            {
-                firePosition.x += fireSeparator;
-                GameObject fireObj = Instantiate(firePre, firePosition, Quaternion.identity);
-                fireObj.tag = "Fire";
-            }
-            else
-            {
-                firePosition.x -= fireSeparator;
-                GameObject fireObj = Instantiate(firePre, firePosition, Quaternion.identity);
-                fireObj.tag = "Fire";
-            }
+            float fireSeparator = 3.5f;
+
+            Vector2 direction = (mouse - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)).normalized;
+            firePosition += new Vector3(direction.x, direction.y, 0.0f) * fireSeparator;
+            GameObject fireObj = Instantiate(firePre, firePosition, Quaternion.identity);
+            fireObj.tag = "Fire";
+            ConstantForce2D force = fireObj.GetComponent<ConstantForce2D>();
+            force.force = new Vector2(direction.x * 10, (direction.y * 5) + 20);
+
         }
 
         // Use water if it's in water rune mode
-        private void SpawnWater()
+        private void SpawnWater(Vector2 mouse)
         {
-           
+            Vector3 waterPosition = this.transform.position;
+            float waterSeparator = 3.0f;
+
+            Vector2 direction = (mouse - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)).normalized;
+            waterPosition += new Vector3(direction.x, direction.y, 0.0f) * waterSeparator;
+            GameObject waterObj = Instantiate(waterPre, waterPosition, Quaternion.identity);
+            ConstantForce2D force = waterObj.GetComponent<ConstantForce2D>();
+            force.force = new Vector2(direction.x * 100, direction.y * 100);
         }
 
         //determines which runes are contained by the player

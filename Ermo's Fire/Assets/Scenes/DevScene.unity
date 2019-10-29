@@ -16833,6 +16833,12 @@ PrefabInstance:
       propertyPath: invincibilitySeconds
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5733361930620275643, guid: 7a5b0edcabe0c2d408412e377d416141,
+        type: 3}
+      propertyPath: waterPre
+      value: 
+      objectReference: {fileID: 6062967692012925545, guid: 52a0a2c07e70708409fa6991260ea3cd,
+        type: 3}
     - target: {fileID: 1350274464, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
       propertyPath: healthImages.Array.data[0]
       value: 
@@ -16879,9 +16885,41 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1058727289, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058727289, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058727289, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058727289, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 429793077, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 429793075, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 429793075, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 429793075, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 429793075, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a5b0edcabe0c2d408412e377d416141, type: 3}
