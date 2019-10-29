@@ -29,13 +29,13 @@ public class Burnable : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log("Fire and Object collided");
+        Debug.Log("Object collided");
 
         // Other collider is for the incoming object
         // Regular collider is for the object itself
-        if (col.otherCollider.gameObject.tag == "Fire")
+        if (col.gameObject.tag == "Fire")
         {
             burning = true;
             Debug.Log("Object is burning now");

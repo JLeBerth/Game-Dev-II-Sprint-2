@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 2572139588412721814}
   - component: {fileID: 8802579548526889096}
   - component: {fileID: 3718307549627432346}
-  - component: {fileID: -3597492135406197170}
-  - component: {fileID: -3796857158931632018}
-  - component: {fileID: -2611688200348423338}
+  - component: {fileID: 2537119358809242267}
+  - component: {fileID: -1666382051493918901}
   m_Layer: 9
   m_Name: Fire
   m_TagString: Fire
@@ -92,7 +91,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 5645066369642668980}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 3bccb9c83d3cff642a78a9e3ae989806, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -108,20 +107,8 @@ BoxCollider2D:
   m_AutoTiling: 0
   serializedVersion: 2
   m_Size: {x: 3.17, y: 2.93}
-  m_EdgeRadius: 0
---- !u!114 &-3597492135406197170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5645066369642668980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71d3b181a8db59447a3ce59957625f4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!50 &-3796857158931632018
+  m_EdgeRadius: 0.5
+--- !u!50 &2537119358809242267
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -142,7 +129,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!247 &-2611688200348423338
+--- !u!247 &-1666382051493918901
 ConstantForce2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,6 +137,6 @@ ConstantForce2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5645066369642668980}
   m_Enabled: 1
-  m_Force: {x: 3, y: 10}
-  m_RelativeForce: {x: 3, y: 10}
-  m_Torque: 3
+  m_Force: {x: 2, y: 20}
+  m_RelativeForce: {x: 0, y: 0}
+  m_Torque: 0
