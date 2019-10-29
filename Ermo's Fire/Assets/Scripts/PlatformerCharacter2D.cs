@@ -35,6 +35,15 @@ namespace UnityStandardAssets._2D
 
         public Camera activeCam; //the active camera in the scene
 
+        private Lives playerLives; //access to the players lives script
+
+        private float invincibilityTime; //time after taking damage that can take damage again
+
+        private bool fireImmunity; //bool to determine if player is immune to fire
+
+
+
+
         enum ActiveRune { fire, water, none };
         ActiveRune selectedRune;
 
@@ -44,15 +53,25 @@ namespace UnityStandardAssets._2D
             m_GroundCheck = transform.Find("GroundCheck");
             m_CeilingCheck = transform.Find("CeilingCheck");
             m_Anim = GetComponent<Animator>();
+            playerLives = GetComponent<Lives>();
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
             selectedRune = ActiveRune.none;
             ActivateRunes();
+            fireImmunity = false;
+            invincibilityTime = 0;
         }
 
 
         private void FixedUpdate()
         {
             m_Grounded = false;
+            fireImmunity = false;
+
+            //count down invincibility time
+            if(invincibilityTime > 0)
+            {
+                invincibilityTime -= Time.deltaTime;
+            }
 
             // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
             // This can be done using layers instead but Sample Assets will not overwrite your project settings.
@@ -150,7 +169,7 @@ namespace UnityStandardAssets._2D
                 switch (selectedRune)
                 {
                     case (ActiveRune.fire):
-                        
+                        fireImmunity = true;
                         break;
 
                     case (ActiveRune.water):
@@ -253,6 +272,20 @@ namespace UnityStandardAssets._2D
                 Destroy(col.collider.gameObject);
             }
 
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+
+            //take damage if in fire and not in fire mode
+            if(collision.gameObject.tag == "Fire" && !fireImmunity)
+            {
+                if (invincibilityTime <= 0)
+                {
+                    playerLives.TakeDamage(1);
+                    invincibilityTime = 2;
+                }
+            }
         }
 
 
