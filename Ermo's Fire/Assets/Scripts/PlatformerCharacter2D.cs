@@ -79,8 +79,12 @@ namespace UnityStandardAssets._2D
                 waterRuneOn = true;
             }
             */ // Moved To Mouse Logic, no longer need test keys, enable if you want to mess with them as debug
-            if(m_Selection)
+
+            if (m_Selection)
             {
+                //draw all runes
+                DrawAll();
+
                 //find 2d mouse position 
                 Vector3 mousePos = Input.mousePosition;
                 mousePos.z = 10.0f;
@@ -116,9 +120,16 @@ namespace UnityStandardAssets._2D
                 {
                     selectedRune = (ActiveRune)3;
                 }
+           
+                //clear list for next update
                 runeDistances.Clear();
             }
 
+            //when no longer selecting rune make all but that rune invisible
+            if(Input.GetMouseButtonUp(1))
+            {
+                DrawSelected();  
+            }
             //activate rune primary based on selected rune
             if(runePrimaryActive)
             {
@@ -276,6 +287,41 @@ namespace UnityStandardAssets._2D
         {
             runes[0].SetActive(hasFireRune);
             runes[1].SetActive(hasWaterRune);
+            DrawSelected();
+        }
+
+        //draws the current selected rune
+        private void DrawSelected()
+        {
+            //set only active rune as visible
+            for (int i = 0; i < runes.Count; i++)
+            {
+                SpriteRenderer sprender = runes[i].GetComponent<SpriteRenderer>();
+                GameObject runetext = runes[i].transform.GetChild(0).gameObject;
+                if (i != (int)selectedRune)
+                {
+                    sprender.enabled = false;
+                    runetext.SetActive(false);
+                }
+                else
+                {
+                    sprender.enabled = true;
+                    runetext.SetActive(true);
+                }
+            }
+        }
+
+        //draws all runes
+        private void DrawAll()
+        {
+            for (int i = 0; i < runes.Count; i++)
+            {
+                SpriteRenderer sprender = runes[i].GetComponent<SpriteRenderer>();
+                GameObject runetext = runes[i].transform.GetChild(0).gameObject;            
+                sprender.enabled = true;
+                runetext.SetActive(true);
+                
+            }
         }
     }
 }
