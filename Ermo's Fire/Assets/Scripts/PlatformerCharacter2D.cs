@@ -18,7 +18,7 @@ namespace UnityStandardAssets._2D
         const float k_CeilingRadius = .01f; // Radius of the overlap circle to determine if the player can stand up
         private Animator m_Anim;            // Reference to the player's animator component.
         private Rigidbody2D m_Rigidbody2D;
-        private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+        [SerializeField] private bool m_FacingRight = false;  // For determining which way the player is currently facing.
         //private bool fireRuneOn = false; // if fire rune is enabled or not  IIIIIIIIIIIIIIIIIIII -> Moved to Enum
         //private bool waterRuneOn = false; // if water rune is enabled or not IIIIIIIIIIIIIIIIIII -> Moved to Enum
         public bool hasFireRune = false; // no fire rune at the start
@@ -45,7 +45,9 @@ namespace UnityStandardAssets._2D
         private float normalGravity; //float to hold the normal gravity of the player
         private float waterGravity; //float that represents the value of gravity of the player when in water
 
-
+        private Vector3 position, velocity;
+        private float angularVelocity;
+        private bool isCollidingBall;
 
 
         enum ActiveRune { fire, water, none };
@@ -82,7 +84,7 @@ namespace UnityStandardAssets._2D
             Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
 
             //set gravity depending if you're in water or not
-            if(inWater)
+            if(!inWater)
             {
                 //gameObject.GetComponent<m_Rigidbody2D>().;
                 m_Grounded = true;
@@ -205,6 +207,24 @@ namespace UnityStandardAssets._2D
                         break;
                 }
             }
+
+            // Handling ball collision
+            if (!isCollidingBall)
+            {
+                position = m_Rigidbody2D.position;
+                velocity = m_Rigidbody2D.velocity;
+                angularVelocity = m_Rigidbody2D.angularVelocity;
+            }
+        }
+
+        private void LateUpdate()
+        {
+            if (isCollidingBall)
+            {
+                m_Rigidbody2D.position = position;
+                m_Rigidbody2D.velocity = velocity;
+                m_Rigidbody2D.angularVelocity = angularVelocity;
+            }
         }
 
 
@@ -322,6 +342,13 @@ namespace UnityStandardAssets._2D
             {
                 inWater = true;
             }
+
+            // Colliding with the ball
+            if (collision.gameObject.tag == "Ball")
+            {
+                isCollidingBall = true;
+
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -329,6 +356,12 @@ namespace UnityStandardAssets._2D
             if(collision.gameObject.tag == "Water")
             {
                 inWater = false;
+            }
+
+            // Colliding with the ball
+            if (collision.gameObject.tag == "Ball")
+            {
+                isCollidingBall = false;
             }
         }
 

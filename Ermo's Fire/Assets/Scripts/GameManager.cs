@@ -33,15 +33,10 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case GameState.Introduction:
-                GameObject checkpoint = GameObject.Find("Checkpoint");
-                Vector2 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
-                if (checkpoint != null && Mathf.Abs(playerPos.x - checkpoint.transform.position.x) < 2f)
-                {
-                    GameStats.currentState = GameState.SnowScene;
-                    SceneManager.LoadScene("SnowScene");
-                }
+                ReachCheckPoint("SnowScene");
                 break;
             case GameState.SnowScene:
+                ReachCheckPoint("WaterScene");
                 break;
             case GameState.WaterScene:
                 break;
@@ -51,6 +46,18 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Win:
                 break;
+        }
+    }
+
+    // Checks if the player reaches the check point, if true, then load the next scene
+    void ReachCheckPoint(string sceneName)
+    {
+        GameObject checkpoint = GameObject.Find("Checkpoint");
+        Vector2 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+        if (checkpoint != null && Mathf.Abs(playerPos.x - checkpoint.transform.position.x) < 2f)
+        {
+            GameStats.currentState = GameState.SnowScene;
+            SceneManager.LoadScene(sceneName);
         }
     }
 }
