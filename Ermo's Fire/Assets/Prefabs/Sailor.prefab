@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 1780993682131838590}
   - component: {fileID: 5587020682571216826}
   m_Layer: 8
-  m_Name: SailorMoon
+  m_Name: Sailor
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,7 +110,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 3a018fb6fdc868746ae725f1d57a4035, type: 3}
+  m_Sprite: {fileID: 21300000, guid: aacc514c4f43ad64ba398dffbff863fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -196,6 +196,7 @@ MonoBehaviour:
   m_WhatIsGround:
     serializedVersion: 2
     m_Bits: 4294967295
+  m_FacingRight: 1
   hasFireRune: 0
   hasWaterRune: 0
   firePre: {fileID: 5645066369642668980, guid: 442765ac26fcbf747b5796d9696512ee, type: 3}
@@ -236,18 +237,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.011487961}
+  m_Offset: {x: -0.023458675, y: -0.016663194}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.6, y: 2.93}
+    oldSize: {x: 1.28, y: 1.28}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.45, y: 2.7837915}
+  m_Size: {x: 0.84006476, y: 1.3574793}
   m_EdgeRadius: 0.1
 --- !u!114 &1780993682131838590
 MonoBehaviour:
@@ -326,6 +327,7 @@ GameObject:
   - component: {fileID: 151411518983624690}
   - component: {fileID: 151411518983624691}
   - component: {fileID: 151411518983624700}
+  - component: {fileID: 1640722424}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -357,7 +359,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.14117648, g: 0.2627451, b: 0.3529412, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -398,6 +400,21 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 151411518983624701}
   m_Enabled: 1
+--- !u!114 &1640722424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151411518983624701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8d8f71fb150e1943ac55d2cb07de093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUnderWater: 0
+  skybox: {fileID: 2100000, guid: c55afdc4a8a3b4890b07cc7d176510bb, type: 2}
+  water: {fileID: 0}
 --- !u!1 &3716907370558766855
 GameObject:
   m_ObjectHideFlags: 0

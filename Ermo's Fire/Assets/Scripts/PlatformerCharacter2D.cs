@@ -47,7 +47,8 @@ namespace UnityStandardAssets._2D
 
         private Vector3 position, velocity;
         private float angularVelocity;
-        private bool isCollidingBall;
+        [SerializeField] private bool isCollidingBall;
+        [SerializeField] private GameObject ball;
 
 
         enum ActiveRune { fire, water, none };
@@ -69,8 +70,18 @@ namespace UnityStandardAssets._2D
             //Setup the values for gravity
             normalGravity = 3.0f;
             waterGravity = 0.0f;
+
+            // Initialize ball
         }
 
+        private void Start()
+        {
+            if (GameStats.currentState == GameState.WaterScene)
+            {
+                ball = GameObject.FindGameObjectWithTag("Ball");
+            }
+
+        }
 
         private void FixedUpdate()
         {
@@ -207,26 +218,7 @@ namespace UnityStandardAssets._2D
                         break;
                 }
             }
-
-            // Handling ball collision
-            if (!isCollidingBall)
-            {
-                position = m_Rigidbody2D.position;
-                velocity = m_Rigidbody2D.velocity;
-                angularVelocity = m_Rigidbody2D.angularVelocity;
-            }
         }
-
-        private void LateUpdate()
-        {
-            if (isCollidingBall)
-            {
-                m_Rigidbody2D.position = position;
-                m_Rigidbody2D.velocity = velocity;
-                m_Rigidbody2D.angularVelocity = angularVelocity;
-            }
-        }
-
 
         public void Move(float move, bool crouch, bool jump)
         {
@@ -323,7 +315,25 @@ namespace UnityStandardAssets._2D
                 Destroy(col.collider.gameObject);
             }
 
+            // Colliding with the ball
+            if (col.collider.gameObject.tag == "Ball")
+            {
+                isCollidingBall = true;
+                ball.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+            }
+
         }
+
+        private void OnCollisionExit2D(Collision2D collision)
+        {
+            // Colliding with the ball
+            if (collision.collider.gameObject.tag == "Ball")
+            {
+                isCollidingBall = false;
+                ball.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            }
+        }
+
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -343,12 +353,6 @@ namespace UnityStandardAssets._2D
                 inWater = true;
             }
 
-            // Colliding with the ball
-            if (collision.gameObject.tag == "Ball")
-            {
-                isCollidingBall = true;
-
-            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)
@@ -357,14 +361,7 @@ namespace UnityStandardAssets._2D
             {
                 inWater = false;
             }
-
-            // Colliding with the ball
-            if (collision.gameObject.tag == "Ball")
-            {
-                isCollidingBall = false;
-            }
         }
-
 
 
         // Use fire if it's in fire rune mode
