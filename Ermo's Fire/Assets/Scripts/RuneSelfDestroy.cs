@@ -41,8 +41,6 @@ public class RuneSelfDestroy : MonoBehaviour
 
 
             timeToDestroySelf = true;
-
-            Debug.Log("collided with rune");
         }
     }
 }

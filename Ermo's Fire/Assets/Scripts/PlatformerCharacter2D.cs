@@ -161,13 +161,10 @@ namespace UnityStandardAssets._2D
                 //set the active rune to the current closest
                 for(int i = 0; i < runeDistances.Count; i++)
                 {
-                    Debug.Log("Rune Distance: " + runeDistances[i].ToString());
                     if (runeDistances[i] < currentDistance)
                     {
                         selectedRune = (ActiveRune)i;
                         currentDistance = runeDistances[i];
-
-                        Debug.Log(selectedRune.ToString());
                     }
                 }
 
@@ -300,7 +297,6 @@ namespace UnityStandardAssets._2D
             //if you collect the fire rune
             if (col.collider.gameObject.tag == "Fire Rune")
             {
-                Debug.Log("Collected the fire rune");
                 hasFireRune = true;
                 ActivateRunes();
                 Destroy(col.collider.gameObject);
@@ -309,7 +305,6 @@ namespace UnityStandardAssets._2D
             //if you collect the water rune
             if(col.collider.gameObject.tag == "Water Rune")
             {
-                Debug.Log("Collected the water rune");
                 hasWaterRune = true;
                 ActivateRunes();
                 Destroy(col.collider.gameObject);

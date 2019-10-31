@@ -101,7 +101,6 @@ public class Lives : MonoBehaviour
             curHealth -= amount;
             curHealth = Mathf.Clamp(curHealth, 0, startHearts * healthPerHeart);
             UpdateHearts();
-            Debug.Log("Subtract");
         }
     }
 
@@ -116,7 +115,6 @@ public class Lives : MonoBehaviour
             curHealth += amount;
             curHealth = Mathf.Clamp(curHealth, 0, startHearts * healthPerHeart);
             UpdateHearts();
-            Debug.Log("Add");
         }
     }
 

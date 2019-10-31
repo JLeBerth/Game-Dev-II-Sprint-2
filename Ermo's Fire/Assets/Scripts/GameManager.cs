@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Current State is " + GameStats.currentState.ToString());
         switch (GameStats.currentState)
         {
             case GameState.Title:
@@ -39,13 +38,27 @@ public class GameManager : MonoBehaviour
                 ReachCheckPoint("WaterScene");
                 break;
             case GameState.WaterScene:
+                ReachCheckPoint("Win");
                 break;
             case GameState.Pause:
                 break;
             case GameState.Lose:
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    GameStats.currentState = GameState.Title;
+                    SceneManager.LoadScene("Title");
+                }
                 break;
             case GameState.Win:
+                
                 break;
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+            GameStats.currentState = GameState.Title;
+            SceneManager.LoadScene("Title");
         }
     }
 

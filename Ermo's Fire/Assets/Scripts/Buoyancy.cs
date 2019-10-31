@@ -42,7 +42,6 @@ public class Buoyancy : MonoBehaviour
         {
             Vector2 force = Vector2.up * UpwardForce;
             this.rigidbody2D.AddForce(force, ForceMode2D.Force);
-            Debug.Log(isInWater);
         }
     }
 }
