@@ -14,7 +14,7 @@ public class Lives : MonoBehaviour
     // Initialize variables here
     private void Start()
     {
-        if (GameStats.currentState == GameState.Title)
+        if (GameStats.curHealth == 0)
         {
             GameStats.curHealth = GameStats.startHearts * GameStats.healthPerHeart;
         }
