@@ -378,7 +378,7 @@ namespace UnityStandardAssets._2D
         private void SpawnWater(Vector2 mouse)
         {
             Vector3 waterPosition = this.transform.position;
-            float waterSeparator = 3.0f;
+            float waterSeparator = 2.0f;
 
             Vector2 direction = (mouse - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)).normalized;
             waterPosition += new Vector3(direction.x, direction.y, 0.0f) * waterSeparator;
