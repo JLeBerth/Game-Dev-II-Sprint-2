@@ -8,20 +8,18 @@ using UnityEngine.UI;
 /// </summary>
 public class Lives : MonoBehaviour
 {
-    private int maxHeartAmount = 3;
-    public int startHearts = 3;
-    public int curHealth;
-    private int maxHealth;
-    private int healthPerHeart = 1;
-
     public Image[] healthImages;
     public Sprite[] healthSprites;
 
     // Initialize variables here
     private void Start()
     {
-        curHealth = startHearts * healthPerHeart;
-        maxHealth = maxHeartAmount * healthPerHeart;
+        if (GameStats.currentState == GameState.Title)
+        {
+            GameStats.curHealth = GameStats.startHearts * GameStats.healthPerHeart;
+        }
+
+        GameStats.maxHealth = GameStats.maxHeartAmount * GameStats.healthPerHeart;
         checkHealthAmount();
     }
     
@@ -43,9 +41,9 @@ public class Lives : MonoBehaviour
     /// </summary>
     void checkHealthAmount()
     {
-        for (int i = 0; i < maxHeartAmount; i++)
+        for (int i = 0; i < GameStats.maxHeartAmount; i++)
         {
-            if(startHearts <= i)
+            if(GameStats.startHearts <= i)
             {
                 healthImages[i].enabled = false;
             }
@@ -75,14 +73,14 @@ public class Lives : MonoBehaviour
             else
             {
                 i++;
-                if(curHealth >= i * healthPerHeart)
+                if(GameStats.curHealth >= i * GameStats.healthPerHeart)
                 {
                     image.sprite = healthSprites[healthSprites.Length - 1];
                 }
                 else
                 {
-                    int currentHeartHealth = (int)(healthPerHeart - (healthPerHeart * i - curHealth));
-                    int healthPerImage = healthPerHeart / (healthSprites.Length - 1);
+                    int currentHeartHealth = (int)(GameStats.healthPerHeart - (GameStats.healthPerHeart * i - GameStats.curHealth));
+                    int healthPerImage = GameStats.healthPerHeart / (healthSprites.Length - 1);
                     int imageIndex = currentHeartHealth / healthPerImage;
                     image.sprite = healthSprites[imageIndex];
                     empty = true;
@@ -96,10 +94,10 @@ public class Lives : MonoBehaviour
     /// </summary>
     public void TakeDamage(int amount)
     {
-        if(curHealth > 0)
+        if(GameStats.curHealth > 0)
         {
-            curHealth -= amount;
-            curHealth = Mathf.Clamp(curHealth, 0, startHearts * healthPerHeart);
+            GameStats.curHealth -= amount;
+            GameStats.curHealth = Mathf.Clamp(GameStats.curHealth, 0, GameStats.startHearts * GameStats.healthPerHeart);
             UpdateHearts();
         }
     }
@@ -110,10 +108,10 @@ public class Lives : MonoBehaviour
     /// <param name="amount"></param>
     public void Heal(int amount)
     {
-        if (curHealth != startHearts)
+        if (GameStats.curHealth != GameStats.startHearts)
         {
-            curHealth += amount;
-            curHealth = Mathf.Clamp(curHealth, 0, startHearts * healthPerHeart);
+            GameStats.curHealth += amount;
+            GameStats.curHealth = Mathf.Clamp(GameStats.curHealth, 0, GameStats.startHearts * GameStats.healthPerHeart);
             UpdateHearts();
         }
     }
@@ -124,11 +122,11 @@ public class Lives : MonoBehaviour
     /// </summary>
     public void AddHeartContainer()
     {
-        startHearts++;
-        startHearts = Mathf.Clamp(startHearts, 0, maxHeartAmount);
+        GameStats.startHearts++;
+        GameStats.startHearts = Mathf.Clamp(GameStats.startHearts, 0, GameStats.maxHeartAmount);
 
-        curHealth = startHearts * healthPerHeart;
-        maxHealth = maxHeartAmount * healthPerHeart;
+        GameStats.curHealth = GameStats.startHearts * GameStats.healthPerHeart;
+        GameStats.maxHealth = GameStats.maxHeartAmount * GameStats.healthPerHeart;
 
         checkHealthAmount();
     }

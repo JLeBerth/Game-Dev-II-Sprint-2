@@ -13,8 +13,13 @@ public enum GameState
     Pause
 }
 
-public class GameStats : MonoBehaviour
+public static class GameStats
 {
     public static GameState currentState = GameState.Title;
 
+    public static int maxHeartAmount = 3;
+    public static int startHearts = 3;
+    public static int curHealth;
+    public static int maxHealth;
+    public static int healthPerHeart = 1;
 }
