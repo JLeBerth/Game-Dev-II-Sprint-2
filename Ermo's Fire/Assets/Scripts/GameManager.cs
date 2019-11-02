@@ -33,14 +33,15 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Introduction:
                 ReachCheckPoint("SnowScene");
+                CheckLives();
                 break;
             case GameState.SnowScene:
                 ReachCheckPoint("WaterScene");
+                CheckLives();
                 break;
             case GameState.WaterScene:
                 ReachCheckPoint("Win");
-                break;
-            case GameState.Pause:
+                CheckLives();
                 break;
             case GameState.Lose:
                 if (Input.GetKeyDown(KeyCode.Return))
@@ -71,6 +72,15 @@ public class GameManager : MonoBehaviour
         {
             GameStats.currentState = GameState.SnowScene;
             SceneManager.LoadScene(sceneName);
+        }
+    }
+
+    // Check lives
+    void CheckLives()
+    {
+        if(GameStats.curHealth <= 0)
+        {
+            SceneManager.LoadScene("Lose");
         }
     }
 }

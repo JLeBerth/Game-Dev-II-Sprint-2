@@ -9,8 +9,7 @@ public enum GameState
     SnowScene,
     WaterScene,
     Lose,
-    Win,
-    Pause
+    Win
 }
 
 public static class GameStats
