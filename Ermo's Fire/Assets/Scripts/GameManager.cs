@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
                     GameStats.currentState = GameState.Introduction;
                     SceneManager.LoadScene("Introduction");
                 }
+                if (GameStats.curHealth < 3) GameStats.curHealth = 3;
                 break;
             case GameState.Introduction:
                 ReachCheckPoint("SnowScene");
@@ -51,7 +52,11 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case GameState.Win:
-                
+                if (Input.GetKeyDown(KeyCode.Return))
+                {
+                    GameStats.currentState = GameState.Title;
+                    SceneManager.LoadScene("Title");
+                }
                 break;
         }
 

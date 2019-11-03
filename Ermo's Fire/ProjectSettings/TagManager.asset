@@ -8,6 +8,7 @@ TagManager:
   - Fire Rune
   - Water Rune
   - Ball
+  - Water
   layers:
   - Default
   - TransparentFX
