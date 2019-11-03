@@ -191,10 +191,7 @@ namespace UnityStandardAssets._2D
                         break;
 
                     case (ActiveRune.water):
-                        if (Input.GetMouseButtonDown(0))
-                        {
-                            SpawnWater(mousePos2D);
-                        }
+                        SpawnWater(mousePos2D);
                         break;
                 }
             }
