@@ -30,6 +30,9 @@ namespace UnityStandardAssets._2D
         public bool runeSecondaryActive = false; //boolean value that determines if the secondary is being used
         public bool m_Selection = false; //boolean value that determines if runes are being selected
 
+        [SerializeField] [Range(0f, 3f)] private float waterSpawnTimer = 1f;
+        [SerializeField] private float waterSpawnCounter = 0f;
+
         public List<GameObject> runes = new List<GameObject>(); //list of all runes
         private List<float> runeDistances = new List<float>(); //list of distances from the body to the runes
 
@@ -87,6 +90,9 @@ namespace UnityStandardAssets._2D
         {
             m_Grounded = false;
             fireImmunity = false;
+
+            // Increment the water cool down timer
+            waterSpawnCounter += Time.deltaTime;
 
             //find 2d mouse position 
             Vector3 mousePos = Input.mousePosition;
@@ -191,7 +197,11 @@ namespace UnityStandardAssets._2D
                         break;
 
                     case (ActiveRune.water):
-                        SpawnWater(mousePos2D);
+                        if (waterSpawnCounter >= waterSpawnTimer)
+                        {
+                            SpawnWater(mousePos2D);
+                            waterSpawnCounter = 0f;
+                        }
                         break;
                 }
             }

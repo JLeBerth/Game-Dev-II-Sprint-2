@@ -14570,6 +14570,11 @@ PrefabInstance:
       propertyPath: orthographic
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 151411518956630433, guid: 8ca22eb92fb7adb44b2f9afa78a54d1e,
+        type: 3}
+      propertyPath: waterSpawnTimer
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ca22eb92fb7adb44b2f9afa78a54d1e, type: 3}
 --- !u!1 &1613022389
