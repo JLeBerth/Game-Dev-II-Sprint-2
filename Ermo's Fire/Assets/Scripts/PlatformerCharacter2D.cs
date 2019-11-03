@@ -127,19 +127,6 @@ namespace UnityStandardAssets._2D
             // Set the vertical animation
             m_Anim.SetFloat("vSpeed", m_Rigidbody2D.velocity.y);
 
-            /*
-            if(Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                fireRuneOn = true;
-                waterRuneOn = false;
-            }
-            else if(Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                fireRuneOn = false;
-                waterRuneOn = true;
-            }
-            */ // Moved To Mouse Logic, no longer need test keys, enable if you want to mess with them as debug
-
             if (m_Selection)
             {
                 //draw all runes
@@ -183,6 +170,17 @@ namespace UnityStandardAssets._2D
             {
                 DrawSelected();  
             }
+
+            //Set Colors
+            if(selectedRune == ActiveRune.fire)
+            {
+                gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+            }
+            else if(selectedRune == ActiveRune.water)
+            {
+                gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+            }
+
             //activate rune primary based on selected rune
             if(runePrimaryActive)
             {

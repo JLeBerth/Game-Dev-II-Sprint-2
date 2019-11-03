@@ -9,6 +9,7 @@ TagManager:
   - Water Rune
   - Ball
   - Water
+  - music
   layers:
   - Default
   - TransparentFX
