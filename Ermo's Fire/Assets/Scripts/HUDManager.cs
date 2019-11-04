@@ -33,7 +33,6 @@ namespace UnityStandardAssets._2D
 
         void Start()
         {
-            uiFire.transform.position = uiWater.transform.position = Vector3.zero;
             
         }
 
