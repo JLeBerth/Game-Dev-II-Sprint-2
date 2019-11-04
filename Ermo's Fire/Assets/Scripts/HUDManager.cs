@@ -16,6 +16,8 @@ namespace UnityStandardAssets._2D
         Platformer2DUserControl m_Character;
 
         public GameObject uiSprites;
+        public GameObject uiFire;
+        public GameObject uiWater;
 
         // How fast to linearly interpolate for the rune icons
         public float lerpSpeed = 25.0f;
@@ -31,6 +33,8 @@ namespace UnityStandardAssets._2D
 
         void Start()
         {
+            uiFire.transform.position = uiWater.transform.position = Vector3.zero;
+            
         }
 
         void Update()
@@ -48,6 +52,10 @@ namespace UnityStandardAssets._2D
                     float yPos = gameObject.transform.position.y + runeRadius * Mathf.Sin(Mathf.PI * (i + 1) / (nRunes + 1));
                     Vector2 neededPosition = new Vector2(xPos, yPos);
                     uiSprites.transform.GetChild(i).position = Vector2.Lerp(uiSprites.transform.GetChild(i).position, neededPosition, lerpSpeed * Time.deltaTime);
+
+                    float newXPos = uiSprites.transform.GetChild(i).position.x;
+                    float newYPos = uiSprites.transform.GetChild(i).position.y;
+                    uiSprites.transform.GetChild(i).position = new Vector2(newXPos, newYPos);
                 }
             }
             else
